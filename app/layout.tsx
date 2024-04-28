@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Orbit",
   description: "Orbit is a video calling platform like zoom and teams.",
+  icons: {
+    icon: "/icons/logo.svg",
+  },
 };
 
 export default function RootLayout({

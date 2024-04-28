@@ -3,8 +3,10 @@ import {
   CallControls,
   CallParticipantsList,
   CallStatsButton,
+  CallingState,
   PaginatedGridLayout,
   SpeakerLayout,
+  useCallStateHooks,
 } from "@stream-io/video-react-sdk";
 import React from "react";
 import {
@@ -19,6 +21,7 @@ import { LayoutList, User } from "lucide-react";
 import { useSearch } from "@stream-io/video-react-sdk/dist/src/components/Search/hooks";
 import { useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
+import Loader from "./Loader";
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
 const MeetingRoom = () => {
@@ -26,6 +29,10 @@ const MeetingRoom = () => {
   const isPersonalRoom = !!searchParams.get("personal");
   const [layout, setLayout] = React.useState("speaker-left");
   const [showParticipants, setShowParticipants] = React.useState(false);
+  const { useCallCallingState } = useCallStateHooks();
+  const callingState = useCallCallingState();
+
+  if (callingState! == CallingState.JOINED) return <Loader />;
   const CallLayout = () => {
     switch (layout) {
       case "grid":
@@ -56,7 +63,7 @@ const MeetingRoom = () => {
           />
         </div>
       </div>
-      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5">
+      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
         <CallControls />
         <DropdownMenu>
           <div className="flex items-center">
@@ -91,10 +98,10 @@ const MeetingRoom = () => {
           }}
         >
           <div className="cursor-pointer rounded-[10px] bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
-            <User size={20} className="text-white " />
+            <User size={20} className="text-white" />
           </div>
         </button>
-       <EndCallButton/>
+        <EndCallButton />
       </div>
     </section>
   );
