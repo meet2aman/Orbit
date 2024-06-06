@@ -17,7 +17,7 @@ interface MeetingModalProps {
   className?: string;
   children?: React.ReactNode;
   buttonText?: string;
-  handleClick?: () => {};
+  handleClick?: () => void;
   image?: string;
   buttonIcon?: string;
 }
@@ -43,7 +43,12 @@ const MeetingModal: React.FC<MeetingModalProps> = ({
               <Image src={image} alt="image" height={72} width={72} />
             </div>
           )}
-          <h1 className={cn(`text-3xl text-black font-cold leading-[42px]`, className)}>
+          <h1
+            className={cn(
+              `text-3xl text-black font-cold leading-[42px]`,
+              className
+            )}
+          >
             {title}
           </h1>
           {children}

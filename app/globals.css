@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   margin: 0;
   padding: 0;
@@ -116,4 +115,9 @@
 
 .animate-spin {
   animation-duration: 10s;
+}
+
+.calendar {
+  background: black !important;
+  color: white !important;
 }
